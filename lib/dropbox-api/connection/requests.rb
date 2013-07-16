@@ -27,6 +27,8 @@ module Dropbox
             else
               options[:raw] ? response.body : MultiJson.decode(response.body)
           end
+        rescue Dropbox::API::Error::Redirect
+          return Dropbox::API::Response::NotModified.new             
         end
 
 

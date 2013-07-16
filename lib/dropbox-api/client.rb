@@ -26,7 +26,12 @@ module Dropbox
       def ls(path = '')
         Dropbox::API::Dir.init({'path' => path}, self).ls
       end
-
+      
+      def folder_changed?(path = '', hash = '')
+        meta_response = Dropbox::API::Dir.init({'path' => path}, self).folder_meta(path,hash)
+        return (meta_response.kind_of? Dropbox::API::Response::NotModified) ? false : meta_response
+      end
+        
       def account
         Dropbox::API::Object.init(self.raw.account, self)
       end
@@ -43,7 +48,7 @@ module Dropbox
         results = raw.search({ :query => term }.merge(options))
         Dropbox::API::Object.convert(results, self)
       end
-
+      
       def delta(cursor=nil)
         entries  = []
         has_more = true

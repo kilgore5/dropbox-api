@@ -13,6 +13,16 @@ module Dropbox
           [Dropbox::API::Object.convert(data, client)]
         end
       end
+      
+      def folder_meta(path,hash = '')
+        data = client.raw.metadata :path => path, :hash => hash
+        
+        if data.kind_of? Dropbox::API::Error::NotModified
+          return Dropbox::API::Error::NotModified
+        else
+          return data  
+        end
+      end  
 
     end
 

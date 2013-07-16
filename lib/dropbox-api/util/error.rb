@@ -8,6 +8,7 @@ module Dropbox
       class Unauthorized < Exception; end
       class Forbidden < Exception; end
       class NotFound < Exception; end
+      class NotModified < Exception; end
       class Redirect < Exception; end
 
     end
