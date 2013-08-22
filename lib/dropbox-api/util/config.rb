@@ -9,6 +9,7 @@ module Dropbox
         attr_accessor :app_key
         attr_accessor :app_secret
         attr_accessor :mode
+        attr_accessor :app_name
       end
 
       self.endpoints = {
@@ -20,6 +21,7 @@ module Dropbox
       self.app_key    = nil
       self.app_secret = nil
       self.mode       = 'sandbox'
+      self.app_name   = nil
 
     end
 
