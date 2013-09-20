@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "dropbox-api/version"
 
 Gem::Specification.new do |s|
-  s.name        = "dropbox-api"
+  s.name        = "dropbox-api-kilgore5"
   s.version     = Dropbox::API::VERSION
   s.authors     = ["Marcin Bunsch, John Royall"]
   s.email       = ["marcin@futuresimple.com, johnroyall7@yahoo.com"]
