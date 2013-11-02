@@ -18,13 +18,23 @@ module Dropbox
             request(:#{options[:endpoint] || 'main'}, :#{method}, "#{action}", options)
           end
         STR
-      end
-
+      end 
+              
       def request(endpoint, method, action, data = {})
         action.sub! ':root', Dropbox::API::Util.escape(data.delete(:root).to_s) if action.match ':root'
         action.sub! ':path', Dropbox::API::Util.escape(data.delete(:path).to_s) if action.match ':path'
         action = Dropbox::API::Util.remove_double_slashes(action)
-        connection.send(method, endpoint, action, data)
+        
+        retries = 2
+        begin
+          connection.send(method, endpoint, action, data)
+        rescue StandardError, Timeout::Error => err
+          retries -= 1
+          if retries >= 0
+            sleep 10
+            retry
+          end
+        end    
       end
 
       add_method :get,  "/account/info",           :as => 'account', :root => false
